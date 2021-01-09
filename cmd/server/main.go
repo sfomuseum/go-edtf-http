@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/aaronland/go-http-server"
-	_ "github.com/rs/cors"
+	// "github.com/rs/cors"
 	"github.com/sfomuseum/go-edtf-http/api"
 	"github.com/sfomuseum/go-flags/flagset"
 	"log"
@@ -17,7 +17,8 @@ func main() {
 	fs := flagset.NewFlagSet("server")
 
 	server_uri := fs.String("server-uri", "http://localhost:8080", "A valid aaronland/go-http-server URI.")
-	enable_cors := fs.Bool("enable-cors", false, "Enable CORS headers for API responses")
+
+	// enable_cors := fs.Bool("enable-cors", false, "Enable CORS headers for API responses")
 
 	enable_parse_api := fs.Bool("enable-parse-api", true, "Enable the /api/parse endpoint")
 	enable_valid_api := fs.Bool("enable-valid-api", true, "Enable the /api/valid endpoint")
@@ -55,10 +56,12 @@ func main() {
 			log.Fatalf("Failed to API parse handler, %v", err)
 		}
 
+		/*
 		if *enable_cors {
-			// api_parse_handler = c.Handler(api_parse_handler)
+		api_parse_handler = c.Handler(api_parse_handler)
 		}
-
+		*/
+		
 		mux.Handle("/api/parse", api_parse_handler)
 	}
 
@@ -70,10 +73,12 @@ func main() {
 			log.Fatalf("Failed to API is valid handler, %v", err)
 		}
 
+		/*
 		if *enable_cors {
-			// api_valid_handler = c.Handler(api_valid_handler)
+			api_valid_handler = c.Handler(api_valid_handler)
 		}
-
+		*/
+		
 		mux.Handle("/api/valid", api_valid_handler)
 	}
 
@@ -85,10 +90,12 @@ func main() {
 			log.Fatalf("Failed to API is matches handler, %v", err)
 		}
 
+		/*
 		if *enable_cors {
-			// api_matches_handler = c.Handler(api_matches_handler)
+			api_matches_handler = c.Handler(api_matches_handler)
 		}
-
+		*/
+		
 		mux.Handle("/api/matches", api_matches_handler)
 	}
 

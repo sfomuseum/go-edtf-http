@@ -104,7 +104,49 @@ $> curl -s 'http://localhost:8080/api/valid?edtf=1985-01-03'
 true
 ```
 
+## Handlers
+
+### api.IsValidHandler
+
+_To be written._
+
+### api.MatchesHandler
+
+_To be written._
+
+### api.ParseHandler
+
+_To be written._
+
+## Tools
+
+### server
+
+HTTP server for exposing sfomuseum/go-edtf-http handlers.
+
+```
+$> ./bin/server -h
+HTTP server for exposing sfomuseum/go-edtf-http handlers.
+Usage:
+	 ./bin/server [options]
+  -enable-matches-api
+    	Enable the /api/matches endpoint (default true)
+  -enable-parse-api
+    	Enable the /api/parse endpoint (default true)
+  -enable-valid-api
+    	Enable the /api/valid endpoint (default true)
+  -server-uri string
+    	A valid aaronland/go-http-server URI. (default "http://localhost:8080")
+```
+
+For example:
+
+```
+$> ./bin/server
+2021/01/08 17:03:04 Listening on http://localhost:8080
+```
 
 ## See also
 
 * https://github.com/sfomuseum/go-edtf
+* https://github.com/aaronland/go-http-server
