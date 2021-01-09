@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-func ParseHandler() (http.HandlerFunc, error) {
+func IsValidHandler() (http.HandlerFunc, error) {
 
 	fn := func(rsp http.ResponseWriter, req *http.Request) {
 
@@ -23,7 +23,7 @@ func ParseHandler() (http.HandlerFunc, error) {
 			return
 		}
 
-		edtf_date, err := parser.ParseString(edtf_str)
+		is_valid := parser.IsValid(edtf_str)
 
 		if err != nil {
 			http.Error(rsp, err.Error(), http.StatusInternalServerError)
@@ -33,7 +33,7 @@ func ParseHandler() (http.HandlerFunc, error) {
 		rsp.Header().Set("Content-Type", "application/json")
 
 		enc := json.NewEncoder(rsp)
-		err = enc.Encode(edtf_date)
+		err = enc.Encode(is_valid)
 
 		if err != nil {
 			http.Error(rsp, err.Error(), http.StatusInternalServerError)

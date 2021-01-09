@@ -7,7 +7,12 @@ import (
 	"net/http"
 )
 
-func ParseHandler() (http.HandlerFunc, error) {
+type MatchesResult struct {
+	Level   int    `json:"level"`
+	Feature string `json:"feature"`
+}
+
+func MatchesHandler() (http.HandlerFunc, error) {
 
 	fn := func(rsp http.ResponseWriter, req *http.Request) {
 
@@ -23,17 +28,22 @@ func ParseHandler() (http.HandlerFunc, error) {
 			return
 		}
 
-		edtf_date, err := parser.ParseString(edtf_str)
+		level, feature, err := parser.Matches(edtf_str)
 
 		if err != nil {
 			http.Error(rsp, err.Error(), http.StatusInternalServerError)
 			return
 		}
 
+		r := MatchesResult{
+			Level:   level,
+			Feature: feature,
+		}
+
 		rsp.Header().Set("Content-Type", "application/json")
 
 		enc := json.NewEncoder(rsp)
-		err = enc.Encode(edtf_date)
+		err = enc.Encode(r)
 
 		if err != nil {
 			http.Error(rsp, err.Error(), http.StatusInternalServerError)
