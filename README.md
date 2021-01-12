@@ -31,7 +31,7 @@ _Error handling omitted for brevity._
 ### /api/matches
 
 ```
-> curl -s 'http://localhost:8080/api/matches?edtf=1985-01-03/1987'
+$> curl -s 'http://localhost:8080/api/matches?edtf=1985-01-03/1987'
 {"level":0,"feature":"Time Interval"}
 ```
 
@@ -106,17 +106,23 @@ true
 
 ## Handlers
 
-### api.IsValidHandler
+### api.IsValidHandler()
 
-_To be written._
+Return a `http.HandlerFunc` instance that exposes the `sfomuseum/go-edtf parser.IsValid` method over HTTP.
+
+The handler expects to be passed a "edtf" `GET` parameter and returns a JSON-encoded boolean value, on success.
 
 ### api.MatchesHandler
 
-_To be written._
+Return a `http.HandlerFunc` instance that exposes the `sfomuseum/go-edtf parser.Matches` method over HTTP.
+
+The handler expects to be passed a "edtf" `GET` parameter and returns a JSON-encoded string value, on success.
 
 ### api.ParseHandler
 
-_To be written._
+Return a `http.HandlerFunc` instance that exposes the `sfomuseum/go-edtf parser.ParseString` method over HTTP.
+
+The handler expects to be passed a "edtf" `GET` parameter and returns a JSON-encoded `edtf.EDTFDate` value, on success.
 
 ## Tools
 
